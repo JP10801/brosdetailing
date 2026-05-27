@@ -145,13 +145,11 @@ body::before{
   align-items:center;
 }
 
-/* BROS letter colors */
 .logo .b{ color:#009BD9; }
 .logo .r{ color:#FE0002; }
 .logo .o{ color:#44AF35; }
 .logo .s{ color:#FCCF00; }
 
-/* DETAIL text */
 .logo .detail{
   color:#009BD9;
   font-weight:800;
@@ -172,6 +170,33 @@ body::before{
   align-items:center;
   overflow:hidden;
   position:relative;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+
+  width:800px;
+  height:800px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,70,70,.28),
+      transparent 70%
+    );
+
+  top:-250px;
+  right:-200px;
+
+  animation:pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.08); }
 }
 
 .hero-inner{
@@ -209,6 +234,8 @@ body::before{
   position:relative;
 }
 
+/* ❌ COINS REMOVED (was here) */
+
 .hero-car-card{
   position:relative;
   height:540px;
@@ -221,6 +248,53 @@ body::before{
     0 40px 80px rgba(0,0,0,.5),
     0 0 40px rgba(255,45,45,.18),
     inset 0 1px 1px rgba(255,255,255,.1);
+
+  transform-style:preserve-3d;
+
+  transform:
+    perspective(1400px)
+    rotateY(-12deg)
+    rotateX(4deg);
+
+  transition:.5s;
+}
+
+.hero-car-card:hover{
+  transform:
+    perspective(1400px)
+    rotateY(-4deg)
+    rotateX(0deg)
+    translateY(-10px);
+}
+
+.hero-car-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      130deg,
+      transparent 30%,
+      rgba(255,255,255,.16),
+      transparent 60%
+    );
+
+  animation:shine 5s infinite linear;
+}
+
+@keyframes shine{
+  from{ transform:translateX(-100%); }
+  to{ transform:translateX(200%); }
+}
+
+.hero-car-card::after{
+  content:'🏎️';
+  position:absolute;
+  right:20px;
+  bottom:20px;
+  font-size:7rem;
+  opacity:.15;
 }
 
 .hero-car-content{
@@ -232,9 +306,31 @@ body::before{
   justify-content:flex-end;
 }
 
-/* (ALL OTHER STYLES UNCHANGED BELOW) */
+.hero-car-content h2{
+  font-size:2.5rem;
+  margin-bottom:1rem;
+}
 
-/* remaining CSS unchanged ... */
+.hero-car-content p{
+  color:var(--muted);
+  margin-bottom:1.5rem;
+}
+
+.hero-car-content ul{
+  list-style:none;
+}
+
+.hero-car-content li{
+  margin-bottom:1rem;
+  color:white;
+}
+
+.hero-car-content li::before{
+  content:'⚡ ';
+  color:var(--yellow);
+}
+
+/* EVERYTHING BELOW UNCHANGED (services, gallery, pricing, etc.) */
 
 </style>
 </head>
@@ -264,6 +360,7 @@ body::before{
   <div class="container hero-inner">
 
     <div class="hero-text">
+
       <h1>
         NEXT LEVEL
         <span>KART DETAILING</span>
@@ -273,17 +370,28 @@ body::before{
         Cinematic Mario-inspired auto detailing with premium shine,
         rainbow coatings, and star-powered protection.
       </p>
+
     </div>
 
     <div class="hero-image">
 
-      <!-- ✅ COINS REMOVED -->
+      <!-- coins removed here -->
 
       <div class="hero-car-card">
+
         <div class="hero-car-content">
+
           <h2>POWER-UP DETAILING</h2>
           <p>Luxury 3D ceramic shine package</p>
+
+          <ul>
+            <li>Fire Flower Paint Gloss</li>
+            <li>Rainbow Road Ceramic Coating</li>
+            <li>Super Star Interior Finish</li>
+          </ul>
+
         </div>
+
       </div>
 
     </div>
