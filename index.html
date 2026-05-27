@@ -1,609 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Mario Shine Bros — Red Edition</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-  /* ===== MODERN 3D MARIO CINEMATIC THEME ===== */
 
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&display=swap');
+:root{
+  --bg:#140404;
+  --bg2:#2b0909;
+  --card:#2a1111;
 
-  :root{
-    --bg:#07111f;
-    --bg2:#0f1d33;
-    --card:#13233d;
-    --red:#ff2d55;
-    --red2:#ff5a5f;
-    --yellow:#ffd54a;
-    --blue:#46a7ff;
-    --green:#39d98a;
-    --text:#ffffff;
-    --muted:#c8d6f5;
+  --red:#ff2d2d;
+  --red2:#ff5e3a;
+
+  --yellow:#ffd54a;
+  --blue:#5bbcff;
+
+  --green:#39d98a;
+
+  --text:#ffffff;
+  --muted:#ffd6d6;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Outfit',sans-serif;
+
+  background:
+    radial-gradient(circle at top,#8b1e1e 0%,#2b0909 35%,#140404 70%),
+    linear-gradient(to bottom,#140404,#050101);
+
+  color:white;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND FX */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.05),transparent 25%),
+    radial-gradient(circle at 80% 10%,rgba(255,80,80,.12),transparent 25%),
+    radial-gradient(circle at 70% 70%,rgba(255,120,0,.08),transparent 25%);
+
+  animation:bgFloat 16s ease-in-out infinite alternate;
+}
+
+@keyframes bgFloat{
+  from{transform:translateY(0px);}
+  to{transform:translateY(-20px);}
+}
+
+/* STARS */
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
+
+.star{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+  opacity:.8;
+  animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+  0%,100%{
+    opacity:.2;
+    transform:scale(.8);
+  }
+  50%{
+    opacity:1;
+    transform:scale(1.5);
+  }
+}
+
+/* LAYOUT */
+
+.container{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+.section{
+  padding:6rem 0;
+  position:relative;
+}
+
+/* HEADER */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:999;
+
+  backdrop-filter:blur(18px);
+
+  background:rgba(20,4,4,.75);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1.2rem 0;
+}
+
+.logo{
+  font-size:1.8rem;
+  font-weight:900;
+  letter-spacing:-1px;
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+}
+
+/* BROS letter colors */
+.logo .b{ color:#009BD9; }   /* B blue */
+.logo .r{ color:#FE0002; }   /* R red */
+.logo .o{ color:#44AF35; }   /* O green */
+.logo .s{ color:#FCCF00; }   /* S yellow */
+
+/* DETAIL text */
+.logo .detail{
+  color:#009BD9;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+/* optional glow effect */
+.logo span{
+  text-shadow:
+    0 0 18px rgba(254,0,2,.25),
+    0 0 25px rgba(0,155,217,.15);
+}
+
+.logo::after{
+  content:'✨';
+  position:absolute;
+  right:-30px;
+  top:-5px;
+  animation:spinCoin 4s linear infinite;
+}
+
+@keyframes spinCoin{
+  from{transform:rotateY(0deg);}
+  to{transform:rotateY(360deg);}
+}
+
+.nav{
+  display:flex;
+  gap:2rem;
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+  position:relative;
+}
+
+.nav a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-8px;
+
+  width:0%;
+  height:3px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      to right,
+      var(--yellow),
+      var(--red)
+    );
+
+  transition:.3s;
+}
+
+.nav a:hover::after{
+  width:100%;
+}
+
+.nav a:hover{
+  color:var(--yellow);
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+
+  width:800px;
+  height:800px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,70,70,.28),
+      transparent 70%
+    );
+
+  top:-250px;
+  right:-200px;
+
+  animation:pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{
+    transform:scale(1);
   }
 
-  *{
-    box-sizing:border-box;
+  50%{
+    transform:scale(1.08);
+  }
+}
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  align-items:center;
+}
+
+.hero-text h1{
+  font-size:5rem;
+  line-height:.9;
+  margin-bottom:1.5rem;
+  font-weight:900;
+  letter-spacing:-4px;
+
+  text-shadow:
+    0 0 18px rgba(255,80,80,.25),
+    0 0 45px rgba(255,45,45,.18);
+}
+
+.hero-text h1 span{
+  display:block;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--yellow),
+      #ff9f1a
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-text p{
+  font-size:1.2rem;
+  color:var(--muted);
+  line-height:1.8;
+  max-width:600px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.hero-badges{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-top:2rem;
+}
+
+.hero-badges span{
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  backdrop-filter:blur(10px);
+
+  padding:.8rem 1rem;
+
+  border-radius:999px;
+
+  font-weight:700;
+}
+
+/* BUTTONS */
+
+.btn{
+  padding:1rem 1.5rem;
+  border-radius:18px;
+  text-decoration:none;
+  font-weight:700;
+
+  transition:.35s;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.btn.primary{
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      var(--red2)
+    );
+
+  color:white;
+
+  box-shadow:
+    0 15px 35px rgba(255,45,45,.4),
+    0 0 25px rgba(255,45,45,.35),
+    inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+.btn.primary:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+    0 25px 50px rgba(255,45,45,.5),
+    0 0 45px rgba(255,45,45,.4);
+}
+
+.btn.ghost{
+  border:1px solid rgba(255,255,255,.15);
+
+  background:rgba(255,255,255,.05);
+
+  backdrop-filter:blur(10px);
+
+  color:white;
+}
+
+.btn.ghost:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.12);
+}
+
+/* HERO CARD */
+
+.hero-image{
+  position:relative;
+}
+
+.hero-car-card{
+  position:relative;
+
+  height:540px;
+
+  border-radius:35px;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #551111,
+      #220909
+    );
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.5),
+    0 0 40px rgba(255,45,45,.18),
+    inset 0 1px 1px rgba(255,255,255,.1);
+
+  transform-style:preserve-3d;
+
+  transform:
+    perspective(1400px)
+    rotateY(-12deg)
+    rotateX(4deg);
+
+  transition:.5s;
+}
+
+.hero-car-card:hover{
+  transform:
+    perspective(1400px)
+    rotateY(-4deg)
+    rotateX(0deg)
+    translateY(-10px);
+}
+
+.hero-car-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      130deg,
+      transparent 30%,
+      rgba(255,255,255,.16),
+      transparent 60%
+    );
+
+  animation:shine 5s infinite linear;
+}
+
+@keyframes shine{
+  from{
+    transform:translateX(-100%);
   }
 
-  body{
-    margin:0;
-    font-family:'Outfit',sans-serif;
-    background:
-      radial-gradient(circle at top,#234b88 0%,#07111f 55%),
-      linear-gradient(to bottom,#07111f,#02050c);
-    color:white;
-    overflow-x:hidden;
+  to{
+    transform:translateX(200%);
+  }
+}
+
+.hero-car-card::after{
+  content:'🏎️';
+
+  position:absolute;
+
+  right:20px;
+  bottom:20px;
+
+  font-size:7rem;
+
+  opacity:.15;
+}
+
+.hero-car-content{
+  position:absolute;
+  inset:0;
+
+  padding:3rem;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+.hero-car-content h2{
+  font-size:2.5rem;
+  margin-bottom:1rem;
+}
+
+.hero-car-content p{
+  color:var(--muted);
+  margin-bottom:1.5rem;
+}
+
+.hero-car-content ul{
+  list-style:none;
+}
+
+.hero-car-content li{
+  margin-bottom:1rem;
+  color:white;
+}
+
+.hero-car-content li::before{
+  content:'⚡ ';
+  color:var(--yellow);
+}
+
+/* FLOATING COINS */
+
+.coin{
+  position:absolute;
+
+  width:70px;
+  height:70px;
+
+  border-radius:50%;
+
+  z-index:10;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #fff3a8,
+      #ffd54a 40%,
+      #ffb703
+    );
+
+  box-shadow:
+    0 10px 25px rgba(255,213,74,.45);
+
+  animation:
+    floatCoin 6s ease-in-out infinite;
+}
+
+.coin::before{
+  content:'$';
+
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#b86a00;
+
+  font-size:2rem;
+  font-weight:900;
+}
+
+.coin.one{
+  top:80px;
+  right:100px;
+}
+
+.coin.two{
+  left:-20px;
+  bottom:60px;
+
+  animation-delay:2s;
+}
+
+@keyframes floatCoin{
+  0%,100%{
+    transform:
+      translateY(0px)
+      rotateY(0deg);
   }
 
-  body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:
-      radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 25%),
-      radial-gradient(circle at 80% 10%,rgba(255,215,74,.08),transparent 25%),
-      radial-gradient(circle at 70% 70%,rgba(70,167,255,.07),transparent 25%);
-    animation:bgFloat 16s ease-in-out infinite alternate;
-    z-index:-1;
+  50%{
+    transform:
+      translateY(-20px)
+      rotateY(180deg);
   }
+}
 
-  @keyframes bgFloat{
-    from{transform:translateY(0px);}
-    to{transform:translateY(-20px);}
-  }
+/* TITLES */
 
-  .header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    backdrop-filter:blur(18px);
-    background:rgba(7,17,31,.65);
-    border-bottom:1px solid rgba(255,255,255,.08);
-  }
+.section-title{
+  text-align:center;
 
-  .header-inner{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:1.1rem 0;
-  }
+  font-size:3rem;
 
-  .logo{
-    font-size:1.7rem;
-    font-weight:900;
-    letter-spacing:-1px;
-    color:white;
-    position:relative;
-  }
+  margin-bottom:1rem;
 
-  .logo span{
-    background:linear-gradient(135deg,var(--yellow),#ff9f1a);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
+  font-weight:900;
+  letter-spacing:-2px;
 
-  .logo::after{
-    content:'✨';
-    position:absolute;
-    right:-28px;
-    top:-8px;
-    animation:spinCoin 4s linear infinite;
-  }
+  text-shadow:
+    0 0 18px rgba(255,80,80,.25),
+    0 0 45px rgba(255,45,45,.18);
+}
 
-  @keyframes spinCoin{
-    from{transform:rotateY(0deg);}
-    to{transform:rotateY(360deg);}
-  }
+.section-subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:4rem;
+}
 
-  .nav{
-    display:flex;
-    gap:2rem;
-  }
+/* GRIDS */
 
-  .nav a{
-    color:white;
-    text-decoration:none;
-    font-weight:600;
-    position:relative;
-    transition:.3s;
-  }
+.grid{
+  display:grid;
+  gap:2rem;
+}
 
-  .nav a::after{
-    content:'';
-    position:absolute;
-    bottom:-6px;
-    left:0;
-    width:0%;
-    height:3px;
-    border-radius:20px;
-    background:linear-gradient(to right,var(--yellow),var(--red));
-    transition:.3s;
-  }
+.services-grid,
+.pricing-grid,
+.testimonials-grid{
+  grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+}
 
-  .nav a:hover::after{
-    width:100%;
-  }
+.gallery-grid{
+  grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+}
 
-  .nav a:hover{
-    color:var(--yellow);
-    transform:translateY(-2px);
-  }
+/* CARDS */
 
-  .hero{
-    position:relative;
-    padding:7rem 0 5rem;
-    overflow:hidden;
-  }
+.card{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.03)
+    );
 
-  .hero::before{
-    content:'';
-    position:absolute;
-    width:700px;
-    height:700px;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(255,213,74,.18),transparent 70%);
-    top:-250px;
-    right:-150px;
-    animation:pulse 6s infinite ease-in-out;
-  }
+  border:1px solid rgba(255,80,80,.15);
 
-  @keyframes pulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.08);}
-  }
+  backdrop-filter:blur(18px);
 
-  .hero-inner{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:4rem;
-    align-items:center;
-  }
+  border-radius:30px;
+  padding:2rem;
 
-  .hero-text h1{
-    font-size:4.5rem;
-    line-height:.92;
-    margin-bottom:1.5rem;
-    font-weight:900;
-    letter-spacing:-4px;
-  }
+  transition:.4s;
 
-  .hero-text h1 span{
-    display:block;
-    background:linear-gradient(135deg,var(--yellow),#ff9f1a);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
+  position:relative;
+  overflow:hidden;
+}
 
-  .hero-text p{
-    color:var(--muted);
-    font-size:1.2rem;
-    line-height:1.7;
-    max-width:600px;
-  }
+.card:hover{
+  transform:translateY(-12px);
 
-  .hero-actions{
-    display:flex;
-    gap:1rem;
-    margin-top:2rem;
-  }
+  box-shadow:
+    0 25px 50px rgba(0,0,0,.35);
+}
 
-  .btn{
-    padding:1rem 1.5rem;
-    border-radius:18px;
-    text-decoration:none;
-    font-weight:700;
-    transition:.35s;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-  }
+.card::before{
+  content:'';
+  position:absolute;
+  inset:0;
 
-  .btn.primary{
-    background:linear-gradient(135deg,var(--red),var(--red2));
-    color:white;
-    box-shadow:
-      0 15px 35px rgba(255,45,85,.35),
-      inset 0 1px 0 rgba(255,255,255,.4);
-  }
-
-  .btn.primary:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:
-      0 25px 45px rgba(255,45,85,.45),
-      inset 0 1px 0 rgba(255,255,255,.4);
-  }
-
-  .btn.ghost{
-    border:1px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.05);
-    color:white;
-    backdrop-filter:blur(10px);
-  }
-
-  .btn.ghost:hover{
-    background:rgba(255,255,255,.12);
-    transform:translateY(-4px);
-  }
-
-  .hero-badges{
-    display:flex;
-    gap:1rem;
-    flex-wrap:wrap;
-    margin-top:2rem;
-  }
-
-  .hero-badges span{
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.1);
-    backdrop-filter:blur(14px);
-    padding:.7rem 1rem;
-    border-radius:999px;
-    color:white;
-    font-weight:600;
-  }
-
-  /* ===== 3D CARD ===== */
-
-  .hero-car-card{
-    position:relative;
-    height:520px;
-    border-radius:32px;
-    overflow:hidden;
-    background:
-      linear-gradient(145deg,#1f3558,#0e1728);
-    box-shadow:
-      0 40px 80px rgba(0,0,0,.45),
-      inset 0 1px 1px rgba(255,255,255,.12);
-    transform-style:preserve-3d;
-    transform:perspective(1400px) rotateY(-12deg) rotateX(4deg);
-    transition:.5s;
-  }
-
-  .hero-car-card:hover{
-    transform:perspective(1400px) rotateY(-4deg) rotateX(0deg) translateY(-10px);
-  }
-
-  .hero-car-card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(130deg,transparent 30%,rgba(255,255,255,.18),transparent 60%);
-    animation:shine 4s infinite linear;
-  }
-
-  @keyframes shine{
-    from{transform:translateX(-100%);}
-    to{transform:translateX(200%);}
-  }
-
-  .hero-car-card::after{
-    content:'🍄';
-    position:absolute;
-    font-size:6rem;
-    bottom:25px;
-    right:25px;
-    opacity:.12;
-    transform:translateZ(80px);
-  }
-
-  .hero-car-content{
-    position:absolute;
-    inset:0;
-    padding:3rem;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    z-index:2;
-  }
-
-  .hero-car-content h2{
-    font-size:2.4rem;
-    margin:0 0 .8rem;
-    font-weight:900;
-  }
-
-  .hero-car-content p{
-    color:var(--muted);
-    margin-bottom:1.5rem;
-  }
-
-  .hero-car-content ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-  }
-
-  .hero-car-content li{
-    margin-bottom:.9rem;
-    display:flex;
-    align-items:center;
-    gap:.7rem;
-    color:white;
-  }
-
-  .hero-car-content li::before{
-    content:'⚡';
-    color:var(--yellow);
-  }
-
-  /* ===== FLOATING COINS ===== */
-
-  .coin{
-    position:absolute;
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    background:
-      radial-gradient(circle at 30% 30%,#fff3a8,#ffd54a 40%,#ffb703);
-    box-shadow:0 10px 25px rgba(255,213,74,.45);
-    animation:floatCoin 6s ease-in-out infinite;
-  }
-
-  .coin::before{
-    content:'$';
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#b86a00;
-    font-size:2rem;
-    font-weight:900;
-  }
-
-  .coin.one{
-    top:80px;
-    right:120px;
-  }
-
-  .coin.two{
-    bottom:60px;
-    left:-20px;
-    animation-delay:2s;
-  }
-
-  @keyframes floatCoin{
-    0%,100%{
-      transform:translateY(0px) rotateY(0deg);
-    }
-    50%{
-      transform:translateY(-20px) rotateY(180deg);
-    }
-  }
-
-  /* ===== SECTIONS ===== */
-
-  .section{
-    padding:6rem 0;
-    position:relative;
-  }
-
-  .section-title{
-    text-align:center;
-    font-size:3rem;
-    margin-bottom:1rem;
-    font-weight:900;
-    letter-spacing:-2px;
-  }
-
-  .section-subtitle{
-    text-align:center;
-    color:var(--muted);
-    max-width:700px;
-    margin:0 auto 4rem;
-    line-height:1.7;
-  }
-
-  .grid{
-    display:grid;
-    gap:2rem;
-  }
-
-  .services-grid,
-  .pricing-grid,
-  .testimonials-grid{
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  }
-
-  /* ===== MODERN GLASS CARDS ===== */
-
-  .card{
-    position:relative;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(18px);
-    border-radius:28px;
-    padding:2rem;
-    overflow:hidden;
-    transition:.4s;
-  }
-
-  .card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
+  background:
+    linear-gradient(
       135deg,
       rgba(255,255,255,.12),
       transparent 35%
     );
-    pointer-events:none;
-  }
 
-  .card:hover{
-    transform:translateY(-12px);
-    box-shadow:0 25px 50px rgba(0,0,0,.35);
-    border-color:rgba(255,255,255,.18);
-  }
+  pointer-events:none;
+}
 
-  .service-card h3,
-  .pricing-card h3{
-    font-size:1.6rem;
-    margin-bottom:1rem;
-  }
+.service-card h3,
+.pricing-card h3{
+  font-size:1.7rem;
+  margin-bottom:1rem;
+}
 
-  .service-card ul,
-  .pricing-card ul{
-    list-style:none;
-    padding:0;
-    margin-top:1.5rem;
-  }
+.service-card p,
+.pricing-note{
+  color:var(--muted);
+  line-height:1.7;
+}
 
-  .service-card li,
-  .pricing-card li{
-    margin-bottom:.9rem;
-    color:var(--muted);
-  }
+.service-card ul,
+.pricing-card ul{
+  list-style:none;
+  margin-top:1.5rem;
+}
 
-  .service-card li::before,
-  .pricing-card li::before{
-    content:'✔';
-    color:var(--green);
-    margin-right:.7rem;
-  }
+.service-card li,
+.pricing-card li{
+  margin-bottom:1rem;
+  color:var(--muted);
+}
 
-  .price-tag,
-  .pricing-price{
-    margin-top:1.5rem;
-    font-size:2rem;
-    font-weight:900;
-    background:linear-gradient(135deg,var(--yellow),#ff9f1a);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
+.service-card li::before,
+.pricing-card li::before{
+  content:'✔ ';
+  color:var(--green);
+}
 
-  .featured{
-    border:2px solid rgba(255,213,74,.45);
-    transform:scale(1.03);
-  }
+.price-tag,
+.pricing-price{
+  margin-top:1.5rem;
 
-  .badge-accent{
-    display:inline-block;
-    padding:.5rem .9rem;
-    border-radius:999px;
-    background:linear-gradient(135deg,var(--yellow),#ff9f1a);
-    color:#111;
-    font-weight:800;
-    margin-bottom:1rem;
-  }
+  font-size:2rem;
+  font-weight:900;
 
-  /* ===== GALLERY ===== */
+  background:
+    linear-gradient(
+      135deg,
+      var(--yellow),
+      #ff9f1a
+    );
 
-  .gallery-grid{
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  }
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-  .gallery-item{
-    position:relative;
-    min-height:280px;
-    border-radius:30px;
-    overflow:hidden;
-    background:
-      linear-gradient(135deg,#274b7a,#111d31);
-    box-shadow:0 20px 50px rgba(0,0,0,.35);
-    transition:.45s;
-  }
+.featured{
+  border:2px solid rgba(255,90,90,.4);
 
-  .gallery-item:hover{
-    transform:scale(1.03) rotate(-1deg);
-  }
+  transform:scale(1.03);
 
-  .gallery-item::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(to top,rgba(0,0,0,.7),transparent),
-      url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop') center/cover;
-    opacity:.9;
-  }
+  box-shadow:
+    0 0 35px rgba(255,45,45,.15);
+}
 
-  .badge{
-    position:absolute;
-    left:20px;
-    bottom:20px;
-    z-index:2;
-    padding:.7rem 1rem;
-    border-radius:999px;
-    background:rgba(255,255,255,.1);
-    backdrop-filter:blur(10px);
-    font-weight:700;
-  }
+.badge-accent{
+  display:inline-block;
 
-  /* ===== CONTACT ===== */
+  padding:.5rem .9rem;
 
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--yellow),
+      #ff9f1a
+    );
+
+  color:#111;
+
+  font-weight:800;
+
+  margin-bottom:1rem;
+}
+
+/* GALLERY */
+
+.gallery-item{
+  min-height:300px;
+
+  border-radius:30px;
+  overflow:hidden;
+
+  position:relative;
+
+  display:flex;
+  align-items:flex-end;
+
+  padding:1.5rem;
+
+  transition:.4s;
+}
+
+.gallery-item:hover{
+  transform:scale(1.03);
+}
+
+.gallery-item::before{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(to top,rgba(0,0,0,.75),transparent),
+    url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop') center/cover;
+}
+
+.badge{
+  position:relative;
+  z-index:2;
+
+  padding:.7rem 1rem;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.1);
+
+  backdrop-filter:blur(10px);
+
+  font-weight:700;
+}
+
+/* TESTIMONIALS */
+
+.testimonial-card p{
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.testimonial-name{
+  margin-top:1rem;
+  color:var(--yellow);
+  font-weight:800;
+}
+
+/* CONTACT */
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+
+.contact-form{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group{
+  margin-bottom:1.3rem;
+}
+
+.contact-form label{
+  display:block;
+  margin-bottom:.6rem;
+  font-weight:700;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea{
+  width:100%;
+
+  background:rgba(255,255,255,.06);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  border-radius:16px;
+
+  padding:1rem;
+
+  color:white;
+
+  font-family:'Outfit',sans-serif;
+}
+
+.form-note{
+  margin-top:1rem;
+  text-align:center;
+  color:var(--muted);
+}
+
+.contact-info h3{
+  font-size:2rem;
+  margin-bottom:1rem;
+}
+
+.contact-info p{
+  line-height:1.8;
+  color:var(--muted);
+}
+
+.contact-highlight{
+  margin-top:2rem;
+  color:var(--yellow);
+  font-weight:700;
+}
+
+/* FOOTER */
+
+footer{
+  padding:2rem 0;
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+  background:#030812;
+}
+
+.footer-inner{
+  text-align:center;
+  color:var(--muted);
+}
+
+.footer-credit{
+  margin-top:.5rem;
+}
+
+/* MOBILE */
+
+@media(max-width:980px){
+
+  .hero-inner,
   .contact-grid{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:2rem;
+    grid-template-columns:1fr;
   }
 
-  .contact-form input,
-  .contact-form textarea,
-  .contact-form select{
-    width:100%;
-    margin-top:.5rem;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.1);
-    color:white;
-    border-radius:16px;
-    padding:1rem;
-    font-family:'Outfit',sans-serif;
+  .hero{
+    padding-top:5rem;
   }
 
-  .form-group{
-    margin-bottom:1.4rem;
-  }
-
-  .contact-info h3{
-    font-size:2rem;
-    margin-bottom:1rem;
-  }
-
-  .contact-highlight{
-    margin-top:2rem;
-    color:var(--yellow);
-    font-weight:700;
-  }
-
-  footer{
-    padding:2rem 0;
-    border-top:1px solid rgba(255,255,255,.08);
-    background:#030812;
-  }
-
-  .footer-inner{
+  .hero-text{
     text-align:center;
-    color:var(--muted);
   }
 
-  /* ===== MOBILE ===== */
-
-  @media(max-width:980px){
-
-    .hero-inner,
-    .contact-grid{
-      grid-template-columns:1fr;
-    }
-
-    .hero-text{
-      text-align:center;
-    }
-
-    .hero-actions,
-    .hero-badges{
-      justify-content:center;
-    }
-
-    .hero-text h1{
-      font-size:3rem;
-    }
-
-    .nav{
-      display:none;
-    }
-
-    .hero-car-card{
-      height:420px;
-      transform:none;
-    }
+  .hero-text h1{
+    font-size:3rem;
   }
+
+  .hero-actions,
+  .hero-badges{
+    justify-content:center;
+  }
+
+  .hero-car-card{
+    height:430px;
+    transform:none;
+  }
+
+  .nav{
+    display:none;
+  }
+}
 
 </style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header class="header">
+
+  <div class="container header-inner">
+
+<div class="logo">
+  <span class="word">
+    <span class="b">B</span>
+    <span class="r">R</span>
+    <span class="o">O</span>
+    <span class="s">S</span>
+  </span>
+
+  <span class="detail">DETAIL</span>
+</div>
+
+</header>
+
+<main>
+
+<section id="hero" class="hero">
+
+  <div class="container hero-inner">
+
+    <div class="hero-text">
+
+      <h1>
+        NEXT LEVEL
+        <span>KART DETAILING</span>
+      </h1>
+
+      <p>
+        Cinematic Mario-inspired auto detailing with premium shine,
+        rainbow coatings, and star-powered protection.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#contact" class="btn primary">BOOK NOW</a>
+        <a href="#services" class="btn ghost">VIEW SERVICES</a>
+      </div>
+
+      <div class="hero-badges">
+        <span>⭐ 4.9 Rating</span>
+        <span>🏁 Mario Kart Inspired</span>
+        <span>✨ Premium Shine</span>
+      </div>
+
+    </div>
+
+    <div class="hero-image">
+
+      <div class="coin one"></div>
+      <div class="coin two"></div>
+
+      <div class="hero-car-card">
+
+        <div class="hero-car-content">
+
+          <h2>POWER-UP DETAILING</h2>
+
+          <p>Luxury 3D ceramic shine package</p>
+
+          <ul>
+            <li>Fire Flower Paint Gloss</li>
+            <li>Rainbow Road Ceramic Coating</li>
+            <li>Super Star Interior Finish</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="services" class="section">
+
+  <div class="container">
+
+    <h2 class="section-title">Power-Up Services</h2>
+
+    <p class="section-subtitle">
+      Professional Mario-inspired detailing packages.
+    </p>
+
+    <div class="grid services-grid">
+
+      <article class="card service-card">
+
+        <h3>Coin Clean</h3>
+
+        <p>
+          Fast premium wash for a quick shine boost.
+        </p>
+
+        <ul>
+          <li>Foam cannon wash</li>
+          <li>Wheel cleaning</li>
+          <li>Exterior gloss finish</li>
+        </ul>
+
+        <div class="price-tag">$49</div>
+
+      </article>
+
+      <article class="card service-card">
+
+        <h3>Star Interior</h3>
+
+        <p>
+          Deep luxury interior restoration package.
+        </p>
+
+        <ul>
+          <li>Steam extraction</li>
+          <li>Leather treatment</li>
+          <li>Odor elimination</li>
+        </ul>
+
+        <div class="price-tag">$149</div>
+
+      </article>
+
+      <article class="card service-card">
+
+        <h3>Rainbow Coating</h3>
+
+        <p>
+          Long-lasting ceramic protection and shine.
+        </p>
+
+        <ul>
+          <li>Paint correction</li>
+          <li>Machine polish</li>
+          <li>5-year ceramic coating</li>
+        </ul>
+
+        <div class="price-tag">$599</div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="gallery" class="section">
+
+  <div class="container">
+
+    <h2 class="section-title">Transformation Gallery</h2>
+
+    <p class="section-subtitle">
+      Before & after power-up transformations.
+    </p>
+
+    <div class="grid gallery-grid">
+
+      <div class="gallery-item">
+        <span class="badge">DIRT MODE</span>
+      </div>
+
+      <div class="gallery-item">
+        <span class="badge">STAR SHINE</span>
+      </div>
+
+      <div class="gallery-item">
+        <span class="badge">RAINBOW ROAD</span>
+      </div>
+
+      <div class="gallery-item">
+        <span class="badge">MARIO GLOSS</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="pricing" class="section">
+
+  <div class="container">
+
+    <h2 class="section-title">Pricing Packages</h2>
+
+    <p class="section-subtitle">
+      Choose your kart upgrade level.
+    </p>
+
+    <div class="grid pricing-grid">
+
+      <article class="card pricing-card">
+
+        <h3>Green Shell</h3>
+
+        <div class="pricing-price">$79</div>
+
+        <p class="pricing-note">
+          Essential exterior refresh.
+        </p>
+
+        <ul>
+          <li>Exterior wash</li>
+          <li>Wheel shine</li>
+          <li>Interior vacuum</li>
+        </ul>
+
+      </article>
+
+      <article class="card pricing-card featured">
+
+        <div class="badge-accent">
+          MOST POPULAR
+        </div>
+
+        <h3>Red Shell</h3>
+
+        <div class="pricing-price">$249</div>
+
+        <p class="pricing-note">
+          Full premium detailing package.
+        </p>
+
+        <ul>
+          <li>Wax & polish</li>
+          <li>Deep interior clean</li>
+          <li>Tire treatment</li>
+          <li>Engine bay clean</li>
+        </ul>
+
+      </article>
+
+      <article class="card pricing-card">
+
+        <h3>Golden Star</h3>
+
+        <div class="pricing-price">$799</div>
+
+        <p class="pricing-note">
+          Ultimate showroom finish.
+        </p>
+
+        <ul>
+          <li>Multi-stage correction</li>
+          <li>5-year ceramic coating</li>
+          <li>Interior protection</li>
+        </ul>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="testimonials" class="section">
+
+  <div class="container">
+
+    <h2 class="section-title">Player Reviews</h2>
+
+    <p class="section-subtitle">
+      Trusted by racers across the Mushroom Kingdom.
+    </p>
+
+    <div class="grid testimonials-grid">
+
+      <article class="card testimonial-card">
+
+        <p>
+          "Absolutely insane shine quality. My car looks better than new."
+        </p>
+
+        <div class="testimonial-name">
+          — TOAD
+        </div>
+
+      </article>
+
+      <article class="card testimonial-card">
+
+        <p>
+          "The Rainbow Coating package is unreal. Worth every coin."
+        </p>
+
+        <div class="testimonial-name">
+          — PRINCESS PEACH
+        </div>
+
+      </article>
+
+      <article class="card testimonial-card">
+
+        <p>
+          "Professional service with Mario Kart energy."
+        </p>
+
+        <div class="testimonial-name">
+          — LUIGI
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="contact" class="section">
+
+  <div class="container">
+
+    <h2 class="section-title">Book Your Power-Up</h2>
+
+    <p class="section-subtitle">
+      Ready to level up your ride?
+    </p>
+
+    <div class="contact-grid">
+
+      <form class="card contact-form">
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Mario Bros">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="mario@kingdom.com">
+        </div>
+
+        <div class="form-group">
+          <label>Service</label>
+
+          <select>
+            <option>Red Shell</option>
+            <option>Coin Clean</option>
+            <option>Rainbow Coating</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+
+          <textarea rows="5" placeholder="Tell us about your ride..."></textarea>
+        </div>
+
+        <button class="btn primary">
+          SEND REQUEST
+        </button>
+
+        <p class="form-note">
+          We'll power-up your ride soon.
+        </p>
+
+      </form>
+
+      <div class="card contact-info">
+
+        <h3>Visit Our Garage</h3>
+
+        <p>
+          123 Rainbow Road<br>
+          Mushroom Kingdom
+        </p>
+
+        <p>
+          Phone: (800) MARIO-KART
+        </p>
+
+        <p>
+          Open Daily<br>
+          8AM — 7PM
+        </p>
+
+        <p class="contact-highlight">
+          Luxury detailing with cinematic Mario vibes.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <p>
+      © 2026 Mario Shine Bros
+    </p>
+
+    <p class="footer-credit">
+      Premium Mushroom Kingdom detailing experience.
+    </p>
+
+  </div>
+
+</footer>
+
+<script>
+
+const stars = document.getElementById('stars');
+
+for(let i = 0; i < 120; i++){
+
+  const star = document.createElement('div');
+
+  star.classList.add('star');
+
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+
+  star.style.animationDelay =
+    Math.random() * 5 + 's';
+
+  star.style.opacity =
+    Math.random();
+
+  stars.appendChild(star);
+}
+
+document.querySelector('.contact-form')
+.addEventListener('submit', e => {
+
+  e.preventDefault();
+
+  alert(
+    'Your request has been sent to the Mushroom Kingdom!'
+  );
+});
+
+</script>
+
+</body>
+</html>
