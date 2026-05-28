@@ -273,3 +273,31 @@ body{
   padding:2rem 0;
   text-align:center;
 }
+/* FORCE ONLY ONE MENU VISIBLE */
+.mobile-menu{
+  display:none;
+}
+
+.mobile-menu.active{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  padding:1rem;
+  background:rgba(20,4,4,.95);
+}
+
+/* DESKTOP ONLY */
+@media (max-width:768px){
+  .nav{
+    display:none;
+  }
+}
+
+.menu-btn{
+  display:none;
+  font-size:1.8rem;
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
