@@ -1,18 +1,50 @@
-const stars = document.getElementById('stars');
+/* STARS */
 
-for(let i = 0; i < 120; i++){
+const stars =
+  document.getElementById('stars');
 
-  const star = document.createElement('div');
+const starCount =
+  window.innerWidth < 768
+    ? 50
+    : 100;
+
+for(let i = 0; i < starCount; i++){
+
+  const star =
+    document.createElement('div');
 
   star.classList.add('star');
 
-  star.style.left = Math.random() * 100 + '%';
-  star.style.top = Math.random() * 100 + '%';
+  star.style.left =
+    Math.random() * 100 + '%';
+
+  star.style.top =
+    Math.random() * 100 + '%';
+
+  star.style.opacity =
+    Math.random();
 
   star.style.animationDelay =
     Math.random() * 5 + 's';
 
-  star.style.opacity = Math.random();
-
   stars.appendChild(star);
+
+}
+
+/* MOBILE MENU */
+
+const menuBtn =
+  document.getElementById('menuBtn');
+
+const mobileMenu =
+  document.getElementById('mobileMenu');
+
+if(menuBtn){
+
+  menuBtn.addEventListener('click', () => {
+
+    mobileMenu.classList.toggle('active');
+
+  });
+
 }
