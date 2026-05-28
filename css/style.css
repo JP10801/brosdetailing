@@ -349,6 +349,14 @@ body{
   text-align:center;
 }
 
+/* =========================
+   CONTACT POLISH (OPTIONAL UPGRADE)
+========================= */
+
+.contact-box{
+  padding:3rem 1rem;
+}
+
 /* MOBILE */
 
 .menu-btn{
