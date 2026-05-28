@@ -13,11 +13,9 @@
   --transition:.35s ease;
 
   --hero-size:clamp(2.5rem,8vw,5rem);
-
 }
 
 /* RESET */
-
 *{
   margin:0;
   padding:0;
@@ -25,17 +23,14 @@
 }
 
 body{
-
   font-family:'Outfit',sans-serif;
-
   background:
     radial-gradient(circle at top,#8b1e1e 0%,#2b0909 35%,#140404 70%);
-
   color:white;
-
   overflow-x:hidden;
 }
 
+/* CONTAINER */
 .container{
   width:min(1180px,92%);
   margin:auto;
@@ -46,7 +41,6 @@ body{
 }
 
 /* STARS */
-
 .stars{
   position:fixed;
   inset:0;
@@ -55,64 +49,33 @@ body{
 
 .star{
   position:absolute;
-
   width:4px;
   height:4px;
-
   border-radius:50%;
   background:white;
-
   animation:twinkle 4s infinite ease-in-out;
 }
 
 @keyframes twinkle{
-
-  0%,100%{
-    opacity:.2;
-    transform:scale(.8);
-  }
-
-  50%{
-    opacity:1;
-    transform:scale(1.5);
-  }
-
+  0%,100%{opacity:.2; transform:scale(.8);}
+  50%{opacity:1; transform:scale(1.5);}
 }
 
 /* HEADER */
-
 .header{
-
   position:sticky;
   top:0;
-
   z-index:999;
-
   background:rgba(20,4,4,.92);
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
 }
 
 .header-inner{
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:1rem 0;
-
 }
-
-.logo{
-  font-size:1.6rem;
-  font-weight:900;
-}
-
-.logo .b{color:#009BD9;}
-.logo .r{color:#FE0002;}
-.logo .o{color:#44AF35;}
-.logo .s{color:#FCCF00;}
 
 .nav{
   display:flex;
@@ -125,118 +88,77 @@ body{
 }
 
 /* LOGO */
-
 .logo{
-
   display:flex;
   align-items:center;
   gap:.6rem;
-
   font-size:1.6rem;
   font-weight:900;
-
 }
 
-.logo-star{
+.logo .b{color:#009BD9;}
+.logo .r{color:#FE0002;}
+.logo .o{color:#44AF35;}
+.logo .s{color:#FCCF00;}
 
+.logo-star{
   width:32px;
   height:32px;
-
   object-fit:contain;
-
   margin-left:.2rem;
-
-  filter:
-    drop-shadow(0 0 8px rgba(255,212,74,.6));
-
-}
-
-.logo-star{
+  filter:drop-shadow(0 0 8px rgba(255,212,74,.6));
   transition:.3s ease;
 }
 
 .logo:hover .logo-star{
-  transform:
-    rotate(12deg)
-    scale(1.08);
+  transform:rotate(12deg) scale(1.08);
 }
 
 /* HERO */
-
 .hero{
-
   min-height:100vh;
-
   display:flex;
   align-items:center;
-
 }
 
 .hero-inner{
-
   display:grid;
   grid-template-columns:1fr 1fr;
-
   gap:5rem;
   align-items:center;
-
 }
 
 .hero-text h1{
-
   font-size:var(--hero-size);
-
   line-height:.95;
-
   margin-bottom:1.5rem;
-
 }
 
 .hero-text h1 span{
-
   display:block;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--yellow),
-      #ff9f1a
-    );
-
+  background:linear-gradient(135deg,var(--yellow),#ff9f1a);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
 }
 
 .hero-text p{
-
   font-size:1.2rem;
-
   color:var(--muted);
-
   line-height:1.8;
-
 }
 
+/* BUTTONS */
 .hero-buttons{
-
   display:flex;
   gap:1rem;
-
   margin-top:2rem;
-
 }
 
 .btn{
-
   padding:1rem 1.5rem;
-
   border-radius:999px;
-
   text-decoration:none;
-
   font-weight:700;
-
 }
 
 .btn-primary{
@@ -245,89 +167,73 @@ body{
 }
 
 .btn-secondary{
-
   border:1px solid rgba(255,255,255,.2);
-
   color:white;
-
 }
 
-/* CARD */
-
+/* HERO CARD (FIXED - NO DUPLICATES) */
 .hero-car-card{
-
-  min-height:420px;
-
+  position:relative;
   border-radius:36px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #551111,
-      #220909
-    );
-
+  background:linear-gradient(145deg,#551111,#220909);
   overflow:hidden;
-
+  min-height:420px;
   padding:3rem;
 
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.55),
+    0 0 25px rgba(255,45,45,.15),
+    inset 0 1px 1px rgba(255,255,255,.08);
+
+  transform:perspective(1200px) rotateY(-10deg) rotateX(4deg);
+  transition:transform .5s ease, box-shadow .5s ease;
+}
+
+.hero-car-card:hover{
+  transform:perspective(1200px) rotateY(-4deg) rotateX(0deg) translateY(-10px) scale(1.01);
+  box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 40px rgba(255,45,45,.25);
+}
+
+.hero-car-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.18),transparent 60%);
+  transform:translateX(-120%);
+  animation:shine 5s infinite linear;
+  pointer-events:none;
+}
+
+@keyframes shine{
+  0%{transform:translateX(-120%);}
+  100%{transform:translateX(120%);}
 }
 
 .hero-car-content{
+  position:relative;
+  z-index:2;
+  height:100%;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  height:100%;
-}
-
-.hero-car-content h2{
-  margin-bottom:1rem;
-}
-
-.hero-car-content p{
-  margin-bottom:1.5rem;
-  color:var(--muted);
-}
-
-.hero-car-content ul{
-  list-style:none;
-}
-
-.hero-car-content li{
-  margin-bottom:1rem;
 }
 
 /* SECTIONS */
-
 .section-title{
   text-align:center;
   margin-bottom:4rem;
 }
 
 .cards{
-
   display:grid;
-
-  grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
-
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:2rem;
-
 }
 
 .card{
-
-  background:
-    linear-gradient(
-      145deg,
-      #3a1111,
-      #220909
-    );
-
+  background:linear-gradient(145deg,#3a1111,#220909);
   padding:2rem;
-
   border-radius:24px;
-
 }
 
 .alt-section{
@@ -340,18 +246,13 @@ body{
   color:var(--yellow);
 }
 
-/* =========================
-   CONTACT SECTION FIX
-========================= */
-
+/* CONTACT FIX (FINAL WORKING VERSION) */
 .contact-box{
   text-align:center;
-
   display:flex;
   flex-direction:column;
   align-items:center;
-
-  gap:1.5rem;   /* THIS is the key fix */
+  gap:1.5rem;
   padding:3rem 1rem;
 }
 
@@ -363,177 +264,12 @@ body{
 }
 
 .contact-box .btn{
+  display:inline-block;
   margin-top:.5rem;
 }
 
+/* FOOTER */
 .footer{
   padding:2rem 0;
   text-align:center;
-}
-
-
-/* MOBILE */
-
-.menu-btn{
-  display:none;
-}
-
-.mobile-menu{
-  display:none;
-}
-
-.hero-car-card{
-  position:relative;
-  border-radius:36px;
-
-  background:
-    linear-gradient(145deg,#551111,#220909);
-
-  overflow:hidden;
-
-  min-height:420px;
-
-  padding:3rem;
-
-  box-shadow:
-    0 40px 80px rgba(0,0,0,.55),
-    0 0 25px rgba(255,45,45,.15),
-    inset 0 1px 1px rgba(255,255,255,.08);
-
-  transform:
-    perspective(1200px)
-    rotateY(-10deg)
-    rotateX(4deg);
-
-  transition:transform .5s ease, box-shadow .5s ease;
-}
-
-/* HOVER EFFECT */
-.hero-car-card:hover{
-  transform:
-    perspective(1200px)
-    rotateY(-4deg)
-    rotateX(0deg)
-    translateY(-10px)
-    scale(1.01);
-
-  box-shadow:
-    0 60px 120px rgba(0,0,0,.6),
-    0 0 40px rgba(255,45,45,.25);
-}
-
-/* SHINE EFFECT */
-.hero-car-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-
-  background:linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.18),
-    transparent 60%
-  );
-
-  transform:translateX(-120%);
-  animation:shine 5s infinite linear;
-  pointer-events:none;
-}
-
-@keyframes shine{
-  0%{ transform:translateX(-120%); }
-  100%{ transform:translateX(120%); }
-}
-
-/* CONTENT FIX */
-.hero-car-content{
-  position:relative;
-  z-index:2;
-
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-}
-
-/* =========================
-   HERO CAR CARD RESTORE
-========================= */
-
-.hero-car-card{
-  position:relative;
-  border-radius:36px;
-
-  background:
-    linear-gradient(145deg,#551111,#220909);
-
-  overflow:hidden;
-
-  min-height:420px;
-
-  box-shadow:
-    0 40px 80px rgba(0,0,0,.55),
-    0 0 25px rgba(255,45,45,.15),
-    inset 0 1px 1px rgba(255,255,255,.08);
-
-  transform:
-    perspective(1200px)
-    rotateY(-10deg)
-    rotateX(4deg);
-
-  transition:transform .5s ease, box-shadow .5s ease;
-}
-
-/* HOVER LIFT + ROTATION */
-.hero-car-card:hover{
-  transform:
-    perspective(1200px)
-    rotateY(-4deg)
-    rotateX(0deg)
-    translateY(-10px)
-    scale(1.01);
-
-  box-shadow:
-    0 60px 120px rgba(0,0,0,.6),
-    0 0 40px rgba(255,45,45,.25);
-}
-
-/* SHINE EFFECT */
-.hero-car-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-
-  background:linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.18),
-    transparent 60%
-  );
-
-  transform:translateX(-100%);
-  animation:shine 5s infinite;
-}
-
-@keyframes shine{
-  0%{
-    transform:translateX(-120%);
-  }
-  100%{
-    transform:translateX(120%);
-  }
-}
-
-/* SUB CONTENT */
-.hero-car-content{
-  position:absolute;
-  inset:0;
-  padding:3rem;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-}
-
-
 }
