@@ -1,70 +1,693 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8" />
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
-/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>
-BrosDetailing Detailing | Ceramic Coating & Auto Detailing
+Bros Auto Detail | Mobile Auto Detailing in Beaverton Oregon
 </title>
 
 <meta
   name="description"
-  content="BrosDetailing Detailing offers premium auto detailing, ceramic coating, paint correction, and interior detailing services with showroom-quality shine."
+  content="Premium mobile auto detailing in Beaverton Oregon. Ceramic coatings, paint correction, interior detailing, and luxury mobile car care."
 />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
   rel="stylesheet"
->
+/>
 
-<link rel="stylesheet" href="css/style.css">
+<style>
 
+:root{
+
+  --bg:#f6f1ea;
+  --bg2:#efe6dc;
+  --card:#ffffff;
+
+  --red:#c53b2f;
+  --gold:#c8a96b;
+
+  --text:#1f1f1f;
+  --muted:#6d645d;
+
+  --glass:rgba(255,255,255,.45);
+
+  --hero-size:clamp(2.8rem,8vw,5.5rem);
+}
+
+/* RESET */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'Outfit',sans-serif;
+
+  background:
+    radial-gradient(circle at top,#ffffff 0%,#f6f1ea 45%,#efe6dc 100%);
+
+  color:var(--text);
+
+  overflow-x:hidden;
+}
+
+/* STARS */
+
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:white;
+  animation:twinkle 5s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+
+  0%,100%{
+    opacity:.2;
+    transform:scale(.8);
+  }
+
+  50%{
+    opacity:.8;
+    transform:scale(1.4);
+  }
+}
+
+/* CONTAINER */
+
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+
+.section{
+  padding:7rem 0;
+}
+
+/* HEADER */
+
+.header{
+
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+
+  z-index:999;
+
+  padding:1.2rem 0;
+
+  transition:
+    background .4s ease,
+    backdrop-filter .4s ease,
+    box-shadow .4s ease;
+}
+
+.header.scrolled{
+
+  background:rgba(255,255,255,.72);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.06);
+}
+
+.header-inner{
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 2rem;
+}
+
+/* LOGO */
+
+.logo{
+
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+
+  font-size:1.5rem;
+  font-weight:900;
+}
+
+.logo .b{color:#009BD9;}
+.logo .r{color:#FE0002;}
+.logo .o{color:#44AF35;}
+.logo .s{color:#FCCF00;}
+
+.logo-star{
+
+  width:52px;
+  height:52px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(0 0 10px rgba(255,212,74,.55));
+
+  transition:.35s ease;
+}
+
+.logo:hover .logo-star{
+  transform:
+    rotate(12deg)
+    scale(1.12);
+}
+
+/* NAV */
+
+.nav{
+  display:flex;
+  gap:2rem;
+}
+
+.nav a{
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-weight:500;
+
+  transition:.3s ease;
+}
+
+.nav a:hover{
+  color:var(--red);
+}
+
+/* MOBILE */
+
+.menu-btn{
+
+  display:none;
+
+  font-size:2rem;
+
+  background:none;
+  border:none;
+
+  color:var(--text);
+
+  cursor:pointer;
+}
+
+.mobile-menu{
+
+  display:none;
+
+  position:fixed;
+
+  top:85px;
+  left:0;
+
+  width:100%;
+
+  padding:2rem;
+
+  background:rgba(255,255,255,.92);
+
+  backdrop-filter:blur(18px);
+
+  z-index:998;
+}
+
+.mobile-menu.active{
+
+  display:flex;
+
+  flex-direction:column;
+  gap:1.5rem;
+}
+
+.mobile-menu a{
+
+  color:var(--text);
+
+  text-decoration:none;
+
+  font-size:1.1rem;
+  font-weight:600;
+}
+
+/* HERO */
+
+.hero{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+
+  padding-top:10rem;
+}
+
+.hero-inner{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:5rem;
+
+  align-items:center;
+}
+
+.hero-text h1{
+
+  font-size:var(--hero-size);
+
+  line-height:.95;
+
+  letter-spacing:-2px;
+
+  margin-bottom:1.5rem;
+}
+
+.hero-text h1 span{
+
+  display:block;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      #e0b777
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero-text p{
+
+  font-size:1.15rem;
+
+  line-height:1.9;
+
+  color:var(--muted);
+
+  max-width:650px;
+}
+
+/* BUTTONS */
+
+.hero-buttons{
+
+  display:flex;
+  gap:1rem;
+
+  margin-top:2rem;
+
+  flex-wrap:wrap;
+}
+
+.btn{
+
+  padding:1rem 1.6rem;
+
+  border-radius:999px;
+
+  text-decoration:none;
+
+  font-weight:700;
+
+  transition:.35s ease;
+}
+
+.btn-primary{
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      #de5a47
+    );
+
+  color:white;
+
+  box-shadow:
+    0 10px 30px rgba(197,59,47,.2);
+}
+
+.btn-primary:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 18px 40px rgba(197,59,47,.3);
+}
+
+.btn-secondary{
+
+  border:1px solid rgba(0,0,0,.08);
+
+  color:var(--text);
+
+  background:rgba(255,255,255,.45);
+
+  backdrop-filter:blur(12px);
+}
+
+/* HERO CARD */
+
+.hero-car-card{
+
+  position:relative;
+
+  border-radius:36px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.75),
+      rgba(255,255,255,.45)
+    );
+
+  backdrop-filter:blur(22px);
+
+  border:1px solid rgba(255,255,255,.5);
+
+  overflow:hidden;
+
+  min-height:460px;
+
+  padding:3rem;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.08);
+
+  transform:
+    perspective(1200px)
+    rotateY(-8deg)
+    rotateX(3deg);
+
+  transition:
+    transform .5s ease,
+    box-shadow .5s ease;
+}
+
+.hero-car-card:hover{
+
+  transform:
+    perspective(1200px)
+    rotateY(-3deg)
+    rotateX(0deg)
+    translateY(-10px);
+
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.12);
+}
+
+.hero-car-card::before{
+
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255,255,255,.4),
+      transparent 60%
+    );
+
+  transform:translateX(-120%);
+
+  animation:shine 6s infinite linear;
+}
+
+@keyframes shine{
+
+  0%{
+    transform:translateX(-120%);
+  }
+
+  100%{
+    transform:translateX(120%);
+  }
+}
+
+.hero-car-content{
+
+  position:relative;
+
+  z-index:2;
+
+  height:100%;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+.hero-car-content h2{
+
+  font-size:2rem;
+
+  margin-bottom:1rem;
+}
+
+.hero-car-content p{
+
+  color:var(--muted);
+
+  margin-bottom:1.5rem;
+}
+
+.hero-car-content ul{
+  list-style:none;
+}
+
+.hero-car-content li{
+  margin-bottom:1rem;
+}
+
+/* SECTIONS */
+
+.section-title{
+
+  text-align:center;
+
+  margin-bottom:4rem;
+}
+
+.section-title h2{
+
+  font-size:2.5rem;
+
+  margin-bottom:1rem;
+}
+
+.section-title p{
+  color:var(--muted);
+}
+
+/* CARDS */
+
+.cards{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+  gap:2rem;
+}
+
+.card{
+
+  background:rgba(255,255,255,.55);
+
+  backdrop-filter:blur(18px);
+
+  border:1px solid rgba(255,255,255,.4);
+
+  padding:2rem;
+
+  border-radius:28px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.05);
+
+  transition:.35s ease;
+}
+
+.card:hover{
+
+  transform:translateY(-8px);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.08);
+}
+
+/* PRICING */
+
+.price{
+
+  font-size:3rem;
+
+  font-weight:900;
+
+  color:var(--gold);
+}
+
+.featured{
+
+  border:2px solid var(--gold);
+
+  transform:scale(1.03);
+}
+
+/* CONTACT */
+
+.contact-box{
+
+  text-align:center;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:1.5rem;
+}
+
+.contact-box p{
+
+  color:var(--muted);
+
+  line-height:1.8;
+
+  max-width:700px;
+}
+
+/* FOOTER */
+
+.footer{
+
+  padding:2rem 0;
+
+  text-align:center;
+
+  color:var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:3rem;
+  }
+
+  .hero{
+    padding-top:8rem;
+  }
+
+  .hero-text{
+    text-align:center;
+  }
+
+  .hero-text p{
+    margin:auto;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  .hero-car-card{
+    transform:none;
+  }
+}
+
+@media (max-width:768px){
+
+  .nav{
+    display:none;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .hero-text h1{
+    font-size:3rem;
+  }
+
+  .hero-car-card{
+    min-height:400px;
+    padding:2rem;
+  }
+
+  .section{
+    padding:5rem 0;
+  }
+
+  .logo{
+    font-size:1.2rem;
+  }
+
+  .logo-star{
+    width:42px;
+    height:42px;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-<div
-  class="stars"
-  id="stars"
-  aria-hidden="true"
-></div>
+<div class="stars" id="stars"></div>
 
 <header class="header">
 
 <div class="container header-inner">
 
-  <div
-    class="logo"
-    aria-label="BrosDetailing Detailing"
-  >
+  <div class="logo">
 
-    <span class="word">
-      <span class="b">B</span>
-      <span class="r">R</span>
-      <span class="o">O</span>
-      <span class="s">S</span>
-    </span>
+    <span class="b">B</span>
+    <span class="r">R</span>
+    <span class="o">O</span>
+    <span class="s">S</span>
 
-    <span class="detail">
-      DETAILING
-    </span>
+    AUTO
 
-    <!-- STAR IMAGE --> <img src="assets/mario-star.png" alt="Mario Star" class="logo-star" >
+    <img
+      src="assets/mario-star.png"
+      alt="Mario Star"
+      class="logo-star"
+    >
 
   </div>
 
@@ -77,11 +700,7 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
 
   </nav>
 
-  <button
-    class="menu-btn"
-    id="menuBtn"
-    aria-label="Open navigation menu"
-  >
+  <button class="menu-btn" id="menuBtn">
     ☰
   </button>
 
@@ -89,10 +708,7 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
 
 </header>
 
-<div
-  class="mobile-menu"
-  id="mobileMenu"
->
+<div class="mobile-menu" id="mobileMenu">
 
 <a href="#services">Services</a>
 <a href="#pricing">Pricing</a>
@@ -101,7 +717,7 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
 
 </div>
 
-<main id="main-content">
+<main>
 
 <section class="hero">
 
@@ -110,31 +726,26 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
   <div class="hero-text">
 
     <h1>
-      Premium Auto Detailing &
-      <span>Ceramic Coating Services</span>
+      Premium Mobile
+      <span>Auto Detailing</span>
     </h1>
 
     <p>
-      BrosDetailing Detailing provides
-      professional ceramic coating, paint
-      correction, interior detailing, and
-      luxury exterior detailing services.
+      Bros Auto Detail delivers luxury
+      mobile detailing services throughout
+      Beaverton Oregon with premium ceramic
+      coatings, paint correction, interior
+      restoration, and showroom-quality finishes.
     </p>
 
     <div class="hero-buttons">
 
-      <a
-        href="#pricing"
-        class="btn btn-primary"
-      >
-        View Packages
+      <a href="#contact" class="btn btn-primary">
+        Book Appointment
       </a>
 
-      <a
-        href="#contact"
-        class="btn btn-secondary"
-      >
-        Book Appointment
+      <a href="#pricing" class="btn btn-secondary">
+        View Packages
       </a>
 
     </div>
@@ -148,17 +759,17 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
       <div class="hero-car-content">
 
         <h2>
-          Professional Detailing Packages
+          Luxury Mobile Detailing
         </h2>
 
         <p>
-          Premium ceramic protection
-          and paint enhancement
+          Precision detailing crafted
+          for modern luxury vehicles.
         </p>
 
         <ul>
+          <li>Hydrophobic Ceramic Coatings</li>
           <li>Paint Correction & Gloss Enhancement</li>
-          <li>Hydrophobic Ceramic Coating</li>
           <li>Interior Steam Cleaning</li>
           <li>Wheel & Tire Restoration</li>
         </ul>
@@ -173,62 +784,55 @@ BrosDetailing Detailing | Ceramic Coating & Auto Detailing
 
 </section>
 
-<section
-id="services"
-class="section"
->
+<section id="services" class="section">
 
 <div class="container">
 
   <div class="section-title">
 
-    <h2>Auto Detailing Services</h2>
+    <h2>Detailing Services</h2>
 
     <p>
-      Complete professional detailing
-      packages for every vehicle.
+      Premium vehicle care tailored
+      to elevate and protect your investment.
     </p>
 
   </div>
 
   <div class="cards">
 
-    <article class="card">
-
-      <h3>Exterior Auto Detailing</h3>
-
-      <p>
-        Deep exterior cleaning,
-        decontamination wash,
-        paint enhancement,
-        and premium wax protection.
-      </p>
-
-    </article>
-
-    <article class="card">
+    <div class="card">
 
       <h3>Ceramic Coating</h3>
 
       <p>
-        Long-lasting ceramic coating
-        protection with hydrophobic
-        technology and UV resistance.
+        Long-lasting hydrophobic protection
+        with stunning gloss enhancement.
       </p>
 
-    </article>
+    </div>
 
-    <article class="card">
+    <div class="card">
 
-      <h3>Interior Car Detailing</h3>
+      <h3>Paint Correction</h3>
 
       <p>
-        Steam cleaning, stain removal,
-        leather conditioning, and
-        complete interior restoration.
+        Remove swirl marks and imperfections
+        for a deep mirror-like finish.
       </p>
 
-    </article>
+    </div>
+
+    <div class="card">
+
+      <h3>Interior Detailing</h3>
+
+      <p>
+        Deep interior restoration with
+        steam cleaning and conditioning.
+      </p>
+
+    </div>
 
   </div>
 
@@ -236,49 +840,41 @@ class="section"
 
 </section>
 
-<section
-id="pricing"
-class="section alt-section"
->
+<section id="pricing" class="section">
 
 <div class="container">
 
   <div class="section-title">
 
-    <h2>Detailing Packages & Pricing</h2>
-
-    <p>
-      Affordable packages designed
-      for every level of protection.
-    </p>
+    <h2>Packages</h2>
 
   </div>
 
   <div class="cards">
 
-    <article class="card pricing-card">
+    <div class="card">
 
-      <h3>Basic Detail</h3>
+      <h3>Basic</h3>
 
       <div class="price">$99</div>
 
-    </article>
+    </div>
 
-    <article class="card pricing-card featured">
+    <div class="card featured">
 
-      <h3>Full Detail</h3>
+      <h3>Premium</h3>
 
       <div class="price">$249</div>
 
-    </article>
+    </div>
 
-    <article class="card pricing-card">
+    <div class="card">
 
-      <h3>Ceramic Elite Package</h3>
+      <h3>Elite</h3>
 
       <div class="price">$699</div>
 
-    </article>
+    </div>
 
   </div>
 
@@ -286,10 +882,7 @@ class="section alt-section"
 
 </section>
 
-<section
-id="reviews"
-class="section"
->
+<section id="reviews" class="section">
 
 <div class="container">
 
@@ -301,30 +894,27 @@ class="section"
 
   <div class="cards">
 
-    <article class="card">
+    <div class="card">
 
       <p>
-        “Best auto detailing service
-        I've used.”
+        “Absolutely incredible detail work.
+        My car looked better than new.”
       </p>
 
-      <strong>
-        — Alex R.
-      </strong>
+      <strong>— Alex R.</strong>
 
-    </article>
+    </div>
 
-    <article class="card">
+    <div class="card">
 
       <p>
-        “Incredible paint correction work.”
+        “Professional, reliable, and the
+        ceramic coating finish was unreal.”
       </p>
 
-      <strong>
-        — Jordan M.
-      </strong>
+      <strong>— Jordan M.</strong>
 
-    </article>
+    </div>
 
   </div>
 
@@ -332,19 +922,17 @@ class="section"
 
 </section>
 
-<section
-id="contact"
-class="section alt-section"
->
+<section id="contact" class="section">
 
 <div class="container contact-box">
 
   <h2>
-    Schedule Your Auto Detailing Appointment
+    Schedule Your Detail
   </h2>
 
   <p>
-    Contact BrosDetailing Detailing today.
+    Serving Beaverton Oregon with premium
+    mobile auto detailing services.
   </p>
 
   <a
@@ -353,6 +941,12 @@ class="section alt-section"
   >
     Book Your Detail
   </a>
+
+  <p>
+    booking@example.com
+    <br>
+    (503) 555-5555
+  </p>
 
 </div>
 
@@ -365,14 +959,77 @@ class="section alt-section"
 <div class="container">
 
   <p>
-    © 2026 BrosDetailing Detailing.
+    © 2026 Bros Auto Detail
   </p>
 
 </div>
 
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+
+/* STARS */
+
+const stars =
+  document.getElementById('stars');
+
+const starCount =
+  window.innerWidth < 768
+    ? 45
+    : 90;
+
+for(let i = 0; i < starCount; i++){
+
+  const star =
+    document.createElement('div');
+
+  star.classList.add('star');
+
+  star.style.left =
+    Math.random() * 100 + '%';
+
+  star.style.top =
+    Math.random() * 100 + '%';
+
+  star.style.opacity =
+    Math.random();
+
+  star.style.animationDelay =
+    Math.random() * 5 + 's';
+
+  stars.appendChild(star);
+}
+
+/* MOBILE MENU */
+
+const menuBtn =
+  document.getElementById('menuBtn');
+
+const mobileMenu =
+  document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', () => {
+
+  mobileMenu.classList.toggle('active');
+
+});
+
+/* HEADER SCROLL */
+
+const header =
+  document.querySelector('.header');
+
+window.addEventListener('scroll', () => {
+
+  if(window.scrollY > 40){
+    header.classList.add('scrolled');
+  }else{
+    header.classList.remove('scrolled');
+  }
+
+});
+
+</script>
 
 </body>
 </html>
