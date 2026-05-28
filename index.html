@@ -165,7 +165,7 @@ body::before{
 /* HERO */
 
 .hero{
-  min-height:100vh;
+  min-height:100svh;
   display:flex;
   align-items:center;
   overflow:hidden;
@@ -233,8 +233,6 @@ body::before{
 .hero-image{
   position:relative;
 }
-
-/* ❌ COINS REMOVED (was here) */
 
 .hero-car-card{
   position:relative;
@@ -330,7 +328,181 @@ body::before{
   color:var(--yellow);
 }
 
-/* EVERYTHING BELOW UNCHANGED (services, gallery, pricing, etc.) */
+/* =========================
+   MOBILE RESPONSIVE FIXES
+========================= */
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+.hero{
+  min-height:auto;
+  padding:7rem 0 4rem;
+}
+
+.hero-inner{
+  align-items:center;
+}
+
+/* TABLETS */
+@media (max-width: 992px){
+
+  .section{
+    padding:5rem 0;
+  }
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:3rem;
+    text-align:center;
+  }
+
+  .hero-text{
+    order:1;
+  }
+
+  .hero-image{
+    order:2;
+  }
+
+  .hero-text h1{
+    font-size:4rem;
+    letter-spacing:-2px;
+  }
+
+  .hero-text p{
+    margin:auto;
+    font-size:1.05rem;
+  }
+
+  .hero-car-card{
+    height:500px;
+
+    transform:
+      perspective(1200px)
+      rotateY(0deg)
+      rotateX(0deg);
+  }
+
+  .hero-car-card:hover{
+    transform:
+      perspective(1200px)
+      rotateY(0deg)
+      rotateX(0deg)
+      translateY(-6px);
+  }
+
+  .hero::before{
+    width:500px;
+    height:500px;
+    right:-180px;
+    top:-150px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+
+  .container{
+    width:92%;
+  }
+
+  .header-inner{
+    padding:1rem 0;
+  }
+
+  .logo{
+    font-size:1.35rem;
+    gap:.35rem;
+  }
+
+  .hero{
+    padding-top:6rem;
+  }
+
+  .hero-text h1{
+    font-size:3rem;
+    line-height:1;
+    letter-spacing:-1px;
+    margin-bottom:1rem;
+  }
+
+  .hero-text p{
+    font-size:1rem;
+    line-height:1.7;
+  }
+
+  .hero-car-card{
+    height:420px;
+    border-radius:24px;
+  }
+
+  .hero-car-content{
+    padding:2rem;
+  }
+
+  .hero-car-content h2{
+    font-size:1.8rem;
+  }
+
+  .hero-car-content p{
+    font-size:.95rem;
+  }
+
+  .hero-car-content li{
+    font-size:.95rem;
+  }
+
+  .hero-car-card::after{
+    font-size:4.5rem;
+    right:15px;
+    bottom:15px;
+  }
+
+  .star{
+    width:3px;
+    height:3px;
+  }
+}
+
+/* SMALL PHONES */
+@media (max-width: 480px){
+
+  .hero-text h1{
+    font-size:2.35rem;
+  }
+
+  .hero-text p{
+    font-size:.95rem;
+  }
+
+  .hero-car-card{
+    height:380px;
+  }
+
+  .hero-car-content{
+    padding:1.5rem;
+  }
+
+  .hero-car-content h2{
+    font-size:1.45rem;
+  }
+
+  .hero-car-content li{
+    margin-bottom:.75rem;
+    font-size:.9rem;
+  }
+
+  .hero::before{
+    width:320px;
+    height:320px;
+    right:-120px;
+    top:-80px;
+  }
+
+}
 
 </style>
 </head>
@@ -374,8 +546,6 @@ body::before{
     </div>
 
     <div class="hero-image">
-
-      <!-- coins removed here -->
 
       <div class="hero-car-card">
 
