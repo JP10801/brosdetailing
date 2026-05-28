@@ -151,6 +151,16 @@ body{
 
 }
 
+.logo-star{
+  transition:.3s ease;
+}
+
+.logo:hover .logo-star{
+  transform:
+    rotate(12deg)
+    scale(1.08);
+}
+
 /* HERO */
 
 .hero{
