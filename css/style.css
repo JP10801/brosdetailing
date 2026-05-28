@@ -374,4 +374,84 @@ body{
     display:block;
   }
 
+/* =========================
+   HERO CAR CARD RESTORE
+========================= */
+
+.hero-car-card{
+  position:relative;
+  border-radius:36px;
+
+  background:
+    linear-gradient(145deg,#551111,#220909);
+
+  overflow:hidden;
+
+  min-height:420px;
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.55),
+    0 0 25px rgba(255,45,45,.15),
+    inset 0 1px 1px rgba(255,255,255,.08);
+
+  transform:
+    perspective(1200px)
+    rotateY(-10deg)
+    rotateX(4deg);
+
+  transition:transform .5s ease, box-shadow .5s ease;
+}
+
+/* HOVER LIFT + ROTATION */
+.hero-car-card:hover{
+  transform:
+    perspective(1200px)
+    rotateY(-4deg)
+    rotateX(0deg)
+    translateY(-10px)
+    scale(1.01);
+
+  box-shadow:
+    0 60px 120px rgba(0,0,0,.6),
+    0 0 40px rgba(255,45,45,.25);
+}
+
+/* SHINE EFFECT */
+.hero-car-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.18),
+    transparent 60%
+  );
+
+  transform:translateX(-100%);
+  animation:shine 5s infinite;
+}
+
+@keyframes shine{
+  0%{
+    transform:translateX(-120%);
+  }
+  100%{
+    transform:translateX(120%);
+  }
+}
+
+/* SUB CONTENT */
+.hero-car-content{
+  position:absolute;
+  inset:0;
+  padding:3rem;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+
 }
